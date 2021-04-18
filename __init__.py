@@ -9,22 +9,24 @@ class CheckBalance(MycroftSkill):
 
     @intent_file_handler('balance.check.intent')
     def handle_balance_check(self, message):
-        #database1 = "cubic.sql"
+        
+        n = int(self.get_response('What is your Customer I.D?'))
+
+        database1 = "cubic.sql"
 
         # create a database connection
-        #conn = sqlite3.connect(database1)
+        conn = sqlite3.connect(database1)
         
-        #cur = conn.cursor()
+        cur = conn.cursor()
 
-        #n = int(self.get_response('What is your Customer ID?'))
 
-        #cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", n,))
-        #cust = cur.fetchone()
+        cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", n,))
+        cust = cur.fetchone()
 
-        #self.speak('Your balance is ${}.'.format(cust[3]))
+        self.speak('Your balance is {}.'.format(cust[2]))
 
-        self.speak_dialog('balance.check')
-        #conn.close()
+        #self.speak_dialog('balance.check')
+        conn.close()
 
 
 def create_skill():
