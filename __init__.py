@@ -20,7 +20,7 @@ class CheckBalance(MycroftSkill):
         cur = conn.cursor()
 
 
-        cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", n,)
+        cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", (n,))
         cust = cur.fetchone()
 
         self.speak('Your balance is {}.'.format(cust[2]))
