@@ -23,7 +23,7 @@ class CheckBalance(MycroftSkill):
 
         #self.speak('Your balance is ${}.'.format(cust[3]))
 
-        self.speak_dialog(balance.check)
+        self.speak_dialog('balance.check')
         #conn.close()
 
 
