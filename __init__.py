@@ -1,4 +1,6 @@
 from mycroft import MycroftSkill, intent_file_handler
+import sqlite3
+from sqlite3 import Error
 
 
 class CheckBalance(MycroftSkill):
