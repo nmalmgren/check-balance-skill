@@ -30,9 +30,10 @@ class CheckBalance(MycroftSkill):
         addmoney = self.ask_yesno('Would you like to add money to your account? (yes/no)')
 
         if addmoney == "yes": 
-            balance = self.get_response("How much money would you like to add?")
-            #balance += cust[3]
-            #cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
+            amount = float(self.get_response("How much money would you like to add?"))
+            balance = amount + cust[3]
+            cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
+            conn.commit()
         self.speak("Have a great day!")
 
         conn.close()
