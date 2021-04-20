@@ -16,14 +16,14 @@ class CheckBalance(MycroftSkill):
         
         cur = conn.cursor()
         
-        #answer = "no"
-        #while (answer == "no"):
-        n = int(self.get_response('What is your Customer I.D?'))
+        answer = "no"
+        while (answer == "no"):
+            n = int(self.get_response('What is your Customer I.D?'))
 
-        cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", (n,))
-        cust = cur.fetchone()
+            cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", (n,))
+            cust = cur.fetchone()
 
-        #answer = self.ask_yesno('You are requesting the account balance for {}. Is this you? (yes/no)'.format(cust[2]))
+            answer = self.ask_yesno('You are requesting the account balance for {}. Is this you? (yes/no)'.format(cust[2]))
     
         
         self.speak('Your balance is ${}.'.format(cust[3]))
