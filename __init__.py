@@ -34,6 +34,7 @@ class CheckBalance(MycroftSkill):
             balance = amount + cust[3]
             cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
             conn.commit()
+            self.speak('Your balance is now${}.'.format(balance))
         self.speak("Have a great day!")
 
         conn.close()
