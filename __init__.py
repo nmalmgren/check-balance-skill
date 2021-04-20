@@ -27,14 +27,13 @@ class CheckBalance(MycroftSkill):
     
         
         self.speak('Your balance is ${}.'.format(cust[3]))
-        #addmoney = self.ask_yesno('Would you like to add money to your account? (yes/no)')
+        addmoney = self.ask_yesno('Would you like to add money to your account? (yes/no)')
 
-        #if addmoney == "yes": 
-        #    balance = float(self.get_response("How much money would you like to add?"))
+        if addmoney == "yes": 
+            balance = self.get_response("How much money would you like to add?")
             #balance += cust[3]
             #cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
-        #if addmoney == "no":
-         #   self.speak("Have a great day!")
+        self.speak("Have a great day!")
 
         conn.close()
 
