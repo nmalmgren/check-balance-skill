@@ -22,7 +22,7 @@ class CheckBalance(MycroftSkill):
 
             validId = 0
             while (validId == 0):
-                n = int(self.get_response('What is your Customer I.D?'))
+                n = int(self.get_response('What is your Customer I.D?').replace(" ", ""))
 
                 cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", (n,))
                 cust = cur.fetchone()
