@@ -42,14 +42,17 @@ class CheckBalance(MycroftSkill):
             #amount = float(self.get_response("How much money would you like to add?"))
             #balance = amount + cust[3]
             amount = self.get_response("How much money would you like to add?")
-            numlist = extract_numbers(amount)
+            #numlist = extract_numbers(amount)
+            amountToFloat = float(amount[1:])
 
-            if len(numlist) == 2:
-                dollars = str(int(numlist[0])) + "." + str(int(numlist[1]))
-            else:
-                dollars = str(numlist[0])
+            #if len(numlist) == 2:
+            #    dollars = str(int(numlist[0])) + "." + str(int(numlist[1]))
+            #else:
+            #    dollars = str(numlist[0])
 
-            balance = float(dollars) + cust[3]
+            #balance = float(dollars) + cust[3]
+
+            balance = amountToFloat + cust[3]
 
             cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
             conn.commit()
