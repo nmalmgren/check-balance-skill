@@ -18,10 +18,19 @@ class CheckBalance(MycroftSkill):
         
         answer = "no"
         while (answer == "no"):
-            n = int(self.get_response('What is your Customer I.D?'))
+            cust = []
 
-            cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", (n,))
-            cust = cur.fetchone()
+            validId = 0
+            while (validId == 0):
+                n = int(self.get_response('What is your Customer I.D?'))
+
+                cur.execute("SELECT * FROM Customer WHERE CustomerID = ?", (n,))
+                cust = cur.fetchone()
+
+                if(cust != None):
+                    validId = 1
+                else:
+                    self.speak("Customer I.D. is not valid. Try again")
 
             answer = self.ask_yesno('You are requesting the account balance for {}. Is this you? (yes/no)'.format(cust[2]))
     
