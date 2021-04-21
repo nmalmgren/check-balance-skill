@@ -36,7 +36,7 @@ class CheckBalance(MycroftSkill):
             numlist = extract_numbers(amount)
 
             if len(numlist) == 2:
-                dollars = str(numlist[0]) + "." + str(numlist[1])
+                dollars = str(int(numlist[0])) + "." + str(int(numlist[1]))
             else:
                 dollars = str(numlist[0])
 
