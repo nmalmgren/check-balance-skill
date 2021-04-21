@@ -30,7 +30,11 @@ class CheckBalance(MycroftSkill):
                 if(cust != None):
                     validId = 1
                 else:
-                    self.speak("Customer I.D. is not valid. Try again")
+                    proceed = self.ask_yesno("Customer I.D. is not valid. Would you like to try again? (yes/no)")
+
+                    if proceed == "no":
+                        self.speak("Have a great day!")
+                        return
 
             answer = self.ask_yesno('You are requesting the account balance for {}. Is this you? (yes/no)'.format(cust[2]))
     
@@ -39,24 +43,15 @@ class CheckBalance(MycroftSkill):
         addmoney = self.ask_yesno('Would you like to add money to your account? (yes/no)')
 
         if addmoney == "yes": 
-            #amount = float(self.get_response("How much money would you like to add?"))
-            #balance = amount + cust[3]
-            amount = self.get_response("How much money would you like to add?")
-            #numlist = extract_numbers(amount)
-            amountToFloat = float(amount[1:])
-
-            #if len(numlist) == 2:
-            #    dollars = str(int(numlist[0])) + "." + str(int(numlist[1]))
-            #else:
-            #    dollars = str(numlist[0])
-
-            #balance = float(dollars) + cust[3]
-
-            balance = amountToFloat + cust[3]
+            amount = float(self.get_response("How much money would you like to add?")[1:])
+            
+            balance = amount + cust[3]
 
             cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
             conn.commit()
+
             self.speak('Your balance is now ${}.'.format(balance))
+
         self.speak("Have a great day!")
 
         conn.close()
