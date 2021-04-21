@@ -35,6 +35,8 @@ class CheckBalance(MycroftSkill):
             amount = self.get_response("How much money would you like to add?")
             numlist = extract_numbers(amount)
 
+            print(len(numlist))
+
             if len(numlist) == 2:
                 dollars = str(int(numlist[0])) + "." + str(int(numlist[1]))
             else:
