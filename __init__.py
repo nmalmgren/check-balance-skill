@@ -1,7 +1,7 @@
 from mycroft import MycroftSkill, intent_file_handler
 import sqlite3
 from sqlite3 import Error
-
+from mycroft.util.parse import *
 
 class CheckBalance(MycroftSkill):
     def __init__(self):
@@ -30,11 +30,21 @@ class CheckBalance(MycroftSkill):
         addmoney = self.ask_yesno('Would you like to add money to your account? (yes/no)')
 
         if addmoney == "yes": 
-            amount = float(self.get_response("How much money would you like to add?"))
-            balance = amount + cust[3]
+            #amount = float(self.get_response("How much money would you like to add?"))
+            #balance = amount + cust[3]
+            amount = self.get_response("How much money would you like to add?")
+            numlist = extract_numbers(amount)
+
+            if len(numlist) == 2:
+                dollars = str(numlist[0]) + "." + str(numlist[1])
+            else:
+                dollars = str(numlist[0])
+
+            balance = float(dollars) + cust[3]
+
             cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
             conn.commit()
-            self.speak('Your balance is now${}.'.format(balance))
+            self.speak('Your balance is now ${}.'.format(balance))
         self.speak("Have a great day!")
 
         conn.close()
