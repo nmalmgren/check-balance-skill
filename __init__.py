@@ -43,9 +43,9 @@ class CheckBalance(MycroftSkill):
         addmoney = self.ask_yesno('Would you like to add money to your account? (yes/no)')
 
         if addmoney == "yes": 
-            amount = float(self.get_response("How much money would you like to add?")[1:])
+            amount = round((float(self.get_response("How much money would you like to add?")[1:])),2)
             
-            balance = amount + cust[3]
+            balance = round((amount + cust[3]), 2)
 
             cur.execute("UPDATE Customer SET Balance = ? WHERE CustomerID = ?", (balance, n,))
             conn.commit()
